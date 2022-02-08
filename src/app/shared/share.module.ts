@@ -1,10 +1,12 @@
 import { NgModule } from '@angular/core';
-import { RandomBGColorDirective } from './directives/random-background-color.directive';
+import { BlinkDirective } from './directives/blink.directive';
+import { ElemRandomBGColorDirective } from './directives/elem-random-bg-color.directive';
+import { FillPipe } from './pipes/fill.pipe';
 
 @NgModule({
   imports: [],
-  exports: [RandomBGColorDirective],
-  declarations: [RandomBGColorDirective],
+  exports: [ElemRandomBGColorDirective, BlinkDirective, FillPipe],
+  declarations: [ElemRandomBGColorDirective, BlinkDirective, FillPipe],
   providers: [],
 })
 export class SharedModule {}

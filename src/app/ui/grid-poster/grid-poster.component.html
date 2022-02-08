@@ -1,0 +1,32 @@
+<div class="container container--center">
+  <div appElemRandomBGColor class="card-container">
+    <div class="card">
+      <ng-container *ngIf="gridsPoster?.length">
+        <ng-container
+          *ngFor="let gridCoordinates of gridsPoster"
+          [ngTemplateOutlet]="gridTemplate"
+          [ngTemplateOutletContext]="{ $implicit: gridCoordinates }"
+        ></ng-container>
+      </ng-container>
+    </div>
+  </div>
+</div>
+
+<ng-template #gridTemplate let-gridCoordinates>
+  <div appElemRandomBGColor class="grid">
+    <ng-container *ngFor="let coordinate of gridCoordinates; index as i">
+      <ng-container *ngIf="coordinate !== '\n'; else separatorTemplate"></ng-container>
+      <div
+        appElemRandomBGColor
+        [allOfType]="'unit'"
+        appBlink
+        [ngClass]="'unit ' + coordinate"
+        [ngStyle]="{ 'grid-area': coordinate }"
+      ></div>
+    </ng-container>
+  </div>
+</ng-template>
+
+<ng-template #separatorTemplate>
+  <div class="separator"></div>
+</ng-template>

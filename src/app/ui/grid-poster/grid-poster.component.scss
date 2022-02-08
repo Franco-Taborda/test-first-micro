@@ -1,0 +1,72 @@
+@function get-grid-areas($cols, $rows) {
+  $template: null;
+
+  @for $i from 0 to $rows {
+    $row-area: '';
+
+    @for $j from 0 to $cols {
+      @if $j > 0 { $row-area: $row-area + ' '; }
+      $row-area: $row-area + 'c' + $j + 'r' + $i;
+    }
+
+    $template: $template $row-area;
+  }
+
+  @return $template;
+}
+
+@mixin grid-map($cols, $rows, $size) {
+  grid-template-columns: repeat($cols, $size);
+  grid-template-rows: repeat($rows, $size);
+  grid-template-areas: get-grid-areas($cols, $rows);
+}
+
+.card {
+  display: grid;
+  grid-template-columns: repeat(var(--grids-quantity), 1fr);
+  gap: var(--unit-length);
+  padding: calc(var(--unit-length) * 1.5);
+  max-width: calc(var(--unit-length) * (calc(var(--grids-quantity) * 5 + var(--grids-quantity) - 1)));
+
+  &-container {
+    border-radius: 1.5vw;
+    box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px,
+                rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+  }
+}
+
+.unit {
+  width: var(--unit-length);
+  height: var(--unit-length);
+  background-color: black;
+}
+
+.grid {
+  display: inline-grid;
+  // margin-left: $unit-length;
+  @include grid-map(5, 7, var(--unit-length));
+
+  &.first {
+    margin-left: 0;
+  }
+}
+
+.blink {
+  animation: fadeInOut 2s ease-in 0s infinite;
+}
+
+@keyframes fadeInOut {
+  0% {
+    opacity: 1;
+  }
+  25% {
+    opacity: 0;
+  }
+  75% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
