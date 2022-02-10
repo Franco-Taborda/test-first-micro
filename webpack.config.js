@@ -31,7 +31,9 @@ module.exports = {
       name: "testFirstMicro",
       filename: "remoteEntry.js",
       exposes: {
-        "./Module": "./src/app/smart-components/home/home.module.ts",
+        "./Home": "./src/app/smart-components/home/home.module.ts",
+        "./HelloWorld": "./src/app/dumb-components/hello-world/hello-world-dumb.component.ts",
+        "./HolaTarolas": "./src/app/dumb-components/hola-tarolas/hola-tarolas-dumb.component.ts",
       },
 
       shared: share({
