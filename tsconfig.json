@@ -24,7 +24,9 @@
     ],
     "paths": {
       "smart/*": ["src/app/smart-components/*"],
-      "dumb/*": ["src/app/dumb-components/*"]
+      "dumb/*": ["src/app/dumb-components/*"],
+      "ui/*": ["src/app/ui/*"],
+      "shared/*": ["src/app/shared/*"],
     },
   },
   "angularCompilerOptions": {
