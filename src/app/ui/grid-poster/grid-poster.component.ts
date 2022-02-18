@@ -1,6 +1,9 @@
 import {
+  AfterContentInit,
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
+  ContentChild,
   ElementRef,
   Input,
   OnChanges,
@@ -10,7 +13,6 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { SHAPES_COORDINATES } from './enums/letters.enum';
-// import { Coordinate, IGridsPoster } from './models/grid.interface';
 
 @Component({
   selector: 'app-grid-poster',
@@ -18,14 +20,26 @@ import { SHAPES_COORDINATES } from './enums/letters.enum';
   styleUrls: ['./grid-poster.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class GridPosterComponent implements OnInit, OnChanges {
+export class GridPosterComponent implements OnChanges, OnInit, AfterContentInit {
+  @ContentChild('input', { read: ElementRef }) contentChildRef: ElementRef;
   @Input() coordinatesSequence: string;
   @Input() lineMaxChar = 16;
   @Input() unitLength = '0.6vw';
+  @Input() dynamicBG = true;
 
   gridsPoster: string[][];
+  unitAmount = 0;
 
-  constructor(private renderer: Renderer2, private elementRef: ElementRef) {}
+  constructor(private renderer: Renderer2, private elementRef: ElementRef, private cd: ChangeDetectorRef) {}
+
+  ngOnChanges(changes: SimpleChanges): void {
+    const change = changes['coordinatesSequence'];
+
+    if (change.previousValue !== change.currentValue) {
+      this.populateGridPoster(change.currentValue);
+      this.setUnitsAmount();
+    }
+  }
 
   ngOnInit(): void {
     const dashCase = RendererStyleFlags2.DashCase;
@@ -33,11 +47,15 @@ export class GridPosterComponent implements OnInit, OnChanges {
     this.renderer.setStyle(this.elementRef.nativeElement, '--grids-quantity', this.lineMaxChar, dashCase);
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    const change = changes['coordinatesSequence'];
-    if (change?.currentValue) {
-      this.populateGridPoster(change.currentValue);
+  ngAfterContentInit(): void {
+    if (this.contentChildRef) {
+      // this.renderer.addClass(this.contentChildRef.nativeElement, 'message');
+      this.renderer.setStyle(this.contentChildRef.nativeElement, 'border', '2px dotted brown');
     }
+  }
+
+  private setUnitsAmount(): void {
+    this.unitAmount = this.gridsPoster?.reduce((prev, currArr) => prev + (currArr?.length || 0), 0);
   }
 
   private populateGridPoster(coordSequence: string): void {

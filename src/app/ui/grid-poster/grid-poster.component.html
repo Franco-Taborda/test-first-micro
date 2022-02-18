@@ -1,15 +1,16 @@
 <div class="container container--center">
-  <div appElemRandomBGColor class="card-container">
-    <div class="card">
-      <ng-container *ngIf="gridsPoster?.length">
-        <ng-container
-          *ngFor="let gridCoordinates of gridsPoster"
-          [ngTemplateOutlet]="gridTemplate"
-          [ngTemplateOutletContext]="{ $implicit: gridCoordinates }"
-        ></ng-container>
-      </ng-container>
+  <ng-content select="[counter]"></ng-content>
+  <app-card [dynamicBG]="dynamicBG">
+    <div *ngIf="gridsPoster?.length" class="grid-container">
+      <ng-container
+        *ngFor="let gridCoordinates of gridsPoster"
+        [ngTemplateOutlet]="gridTemplate"
+        [ngTemplateOutletContext]="{ $implicit: gridCoordinates }"
+      ></ng-container>
     </div>
-  </div>
+  </app-card>
+
+  <ng-content></ng-content>
 </div>
 
 <ng-template #gridTemplate let-gridCoordinates>

@@ -21,21 +21,6 @@
   grid-template-areas: get-grid-areas($cols, $rows);
 }
 
-.card {
-  display: grid;
-  grid-template-columns: repeat(var(--grids-quantity), 1fr);
-  gap: var(--unit-length);
-  padding: calc(var(--unit-length) * 1.5);
-  max-width: calc(var(--unit-length) * (calc(var(--grids-quantity) * 5 + var(--grids-quantity) - 1)));
-
-  &-container {
-    width: fit-content;
-    border-radius: 1.5vw;
-    box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px,
-                rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
-  }
-}
-
 .unit {
   width: var(--unit-length);
   height: var(--unit-length);
@@ -44,8 +29,13 @@
 
 .grid {
   display: inline-grid;
-  // margin-left: $unit-length;
   @include grid-map(5, 7, var(--unit-length));
+
+  &-container {
+    display: grid;
+    grid-template-columns: repeat(var(--grids-quantity), 1fr);
+    gap: var(--unit-length);
+  }
 
   &.first {
     margin-left: 0;
