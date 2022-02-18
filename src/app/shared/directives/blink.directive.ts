@@ -4,8 +4,6 @@ import { Directive, HostBinding, HostListener } from '@angular/core';
 export class BlinkDirective {
   @HostBinding('class.blink') blink = false;
 
-  constructor() {}
-
   @HostListener('mouseover') onMouseOver() {
     this.blink = !this.blink;
   }

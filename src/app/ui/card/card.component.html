@@ -1,0 +1,17 @@
+<ng-container *ngIf="dynamicBG; else defaultCard">
+  <div appElemRandomBGColor class="card-container">
+    <ng-container *ngTemplateOutlet="card"></ng-container>
+  </div>
+</ng-container>
+
+<ng-template #defaultCard>
+  <div class="card-container">
+    <ng-container *ngTemplateOutlet="card"></ng-container>
+  </div>
+</ng-template>
+
+<ng-template #card>
+  <div class="card">
+    <ng-content></ng-content>
+  </div>
+</ng-template>

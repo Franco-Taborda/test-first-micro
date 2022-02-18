@@ -1,5 +1,6 @@
-<app-grid-poster
-  [coordinatesSequence]="gridCoordinates"
-  [unitLength]="'1vw'"
-  [lineMaxChar]="gridCoordinates.length"
-></app-grid-poster>
+<app-grid-poster #gridPoster [coordinatesSequence]="gridCoordinates" [unitLength]="'1vw'" [lineMaxChar]="12">
+  <ng-container *ngIf="gridPosterRef" counter>
+    <h3>Amount of Units: {{ gridPoster.unitAmount }}</h3>
+  </ng-container>
+  <input #input type="text" [(ngModel)]="gridCoordinates" />
+</app-grid-poster>
